@@ -2038,16 +2038,16 @@ export default {
                     });
                 });
 
-                // 按搜索专区给的dispOrd 从-1到大排序
-                that.tabsList = that.tabsList.sort(
-                  (a, b) => a.dispOrd - b.dispOrd
-                );
+                // 保持服务端返回的原始顺序，不按dispOrd排序
+                // that.tabsList = that.tabsList.sort(
+                //   (a, b) => a.dispOrd - b.dispOrd
+                // );
 
-                that.tabsList.forEach((tab) => {
-                  if (tab.subList && tab.subList.length > 0) {
-                    tab.subList.sort((a, b) => a.dispOrd - b.dispOrd);
-                  }
-                });
+                // that.tabsList.forEach((tab) => {
+                //   if (tab.subList && tab.subList.length > 0) {
+                //     tab.subList.sort((a, b) => a.dispOrd - b.dispOrd);
+                //   }
+                // });
               }
 
               // 定位判断
@@ -2135,7 +2135,23 @@ export default {
                 that.searchTable = that.tabsList;
                 // if(!that.searchZoneResultFlag){
                 if (sessionStorage.pageEntranceIncludedPage.includes("1")) {
-                  let arr = yList.concat(xList);
+                  // 保持服务端返回的原始顺序，不将xList放在最后
+                  let arr = [];
+                  // 遍历原始searchTable，保持原始顺序
+                  that.searchTable.forEach(item => {
+                    if (item.wholeTemplateId == that.CONSTANTS.TEMPLATEPAGE.SERV001) {
+                      // 服务数据
+                      arr.push(item);
+                    } else if (item.subList && item.subList.length == 0) {
+                      // 非服务且无二级分类
+                      arr.push(item);
+                    } else if (item.subList && item.subList.length > 0) {
+                      // 有二级分类的数据
+                      item.subList.forEach(subItem => {
+                        arr.push(subItem);
+                      });
+                    }
+                  });
                   // 保持服务端返回的原始顺序，不按maxScore排序
                   // arr.sort((a, b) => b.maxScore - a.maxScore);
                   
