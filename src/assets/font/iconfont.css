@@ -1,0 +1,84 @@
+@font-face {
+  font-family: "s-iconfont"; /* Project id 4036179 */
+  src: url('iconfont.woff2?t=1689556549812') format('woff2'),
+       url('iconfont.woff?t=1689556549812') format('woff'),
+       url('iconfont.ttf?t=1689556549812') format('truetype'),
+       url('iconfont.svg?t=1689556549812#s-iconfont') format('svg');
+}
+
+.s-iconfont {
+  font-family: "s-iconfont", sans-serif !important;
+  /* font-size: 16px; */
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic-yuyin:before {
+  content: "\e679";
+}
+
+.ic-arrowRight:before {
+  content: "\e65d";
+}
+
+.ic-icon-layer-close:before {
+  content: "\e7dd";
+}
+
+.ic-icon-position:before {
+  content: "\e7dc";
+}
+
+.ic-xiajiantou1:before {
+  content: "\eb6d";
+}
+
+.ic-shangjiantou1:before {
+  content: "\eb6e";
+}
+
+.ic-paixu-youpaixu:before {
+  content: "\e6bc";
+}
+
+.ic-icon-close:before {
+  content: "\e7de";
+}
+
+.ic-zuojiantou:before {
+  content: "\e60b";
+}
+
+.ic-youjiantou:before {
+  content: "\e60c";
+}
+
+.ic-shangjiantou:before {
+  content: "\e60a";
+}
+
+.ic-xiajiantou:before {
+  content: "\e60d";
+}
+
+.ic-icon-clean:before {
+  content: "\e7d6";
+}
+
+.ic-icon-goback:before {
+  content: "\e7d7";
+}
+
+.ic-icon-trash:before {
+  content: "\e7d9";
+}
+
+.ic-icon-show:before {
+  content: "\e7da";
+}
+
+.ic-icon-hidden:before {
+  content: "\e7db";
+}
+

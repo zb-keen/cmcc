@@ -1,0 +1,1063 @@
+<template>
+  <div>
+    <!-- ((itemData.currentPrice && itemData.currentPrice >= 0 && isFieldToShow('currentPrice')) 
+    || (itemData.originalPrice && itemData.originalPrice >= 0 && isFieldToShow('originalPrice'))) -->
+    <div
+      class="r-price"
+      :data-value="
+        'currentPrice+' +
+        itemData.currentPrice +
+        '+originalPrice+' +
+        itemData.originalPrice +
+        '+currentPriceUnit+' +
+        itemData.currentPriceUnit +
+        '+originalPriceUnit+' +
+        itemData.originalPriceUnit +
+        '+currentPricePrefix+' +
+        itemData.currentPricePrefix +
+        '+originalPricePrefix+' +
+        itemData.originalPricePrefix
+      "
+    >
+      <!-- 广东自定义价格需求后添加广东价格单独展示判断 -->
+      <template v-if="isGuangDong">
+        <!-- 有现价和现价单位 -->
+        <div
+          v-if="
+            gdCurrentPriceAndUnit &&
+            isFieldToShow('currentPrice') &&
+            isFieldToShow('currentPriceUnit')
+          "
+          class="r-price-dev"
+        >
+          <div class="price-height-color">
+            <div class="p-h-unit">
+              {{
+                isFieldToShow("currentPriceUnit") &&
+                itemData.currentPriceUnit == "元"
+                  ? "¥"
+                  : ""
+              }}
+            </div>
+            <div class="p-h-price">
+              {{ Number(itemData.currentPrice || 0).toFixed(2) }}
+            </div>
+            <div class="p-h-text" v-if="itemData.currentPriceUnit !== '元'">
+              {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "" }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+          <!-- 右侧划线 -->
+          <div
+            class="line"
+            v-if="
+              Number(itemData.currentPrice || 0)
+                .toFixed(2)
+                .split('.')[0]
+                .toString().length <= 6
+            "
+          >
+            <!-- 原价前缀划线 -->
+            <template
+              v-if="
+                isFieldToShow('originalPricePrefix') &&
+                itemData.originalPricePrefix
+              "
+            >
+              <div class="line-text">
+                {{ itemData.originalPricePrefix }}
+              </div>
+            </template>
+            <!-- 原价+原价单位划线 -->
+            <template
+              v-else-if="
+                isFieldToShow('originalPrice') &&
+                itemData.originalPrice &&
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit
+              "
+            >
+              <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+                {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="line-text">
+                {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="line-text"
+                v-if="
+                  isFieldToShow('originalPriceUnit') &&
+                  itemData.originalPriceUnit !== '元'
+                "
+              >
+                {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "" }}
+              </div>
+            </template>
+            <!-- 原价什么信息都没有 -->
+            <template v-else>
+              <!-- <div class="line-text">？？？</div> -->
+            </template>
+          </div>
+        </div>
+        <!-- 有现价前缀 -->
+        <div
+          v-else-if="
+            gdCurrentPricePrefix && isFieldToShow('currentPricePrefix')
+          "
+          class="r-price-dev"
+        >
+          <div class="price-height-color">
+            <div class="p-h-price">
+              {{ itemData.currentPricePrefix }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+          <!-- 右侧划线 -->
+          <div class="line" v-if="itemData.currentPricePrefix.length <= 6">
+            <!-- 原价前缀划线 -->
+            <template
+              v-if="
+                isFieldToShow('originalPricePrefix') &&
+                itemData.originalPricePrefix
+              "
+            >
+              <div class="line-text">
+                {{ itemData.originalPricePrefix }}
+              </div>
+            </template>
+            <!-- 原价+原价单位划线 -->
+            <template
+              v-else-if="
+                isFieldToShow('originalPrice') &&
+                itemData.originalPrice &&
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit
+              "
+            >
+              <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+                {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="line-text">
+                {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="line-text"
+                v-if="
+                  isFieldToShow('originalPriceUnit') &&
+                  itemData.originalPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.originalPriceUnit ? itemData.originalPriceUnit : ""
+                }}
+              </div>
+            </template>
+            <!-- 原价什么信息都没有 -->
+            <template v-else>
+              <!-- <div class="line-text">？？？</div> -->
+            </template>
+          </div>
+        </div>
+        <!--6、有区间价，没有原价和现价-->
+        <div v-else-if="gdHasMinMaxInterval" class="r-price-dev">
+          <div class="price-height-color">
+            <template v-if="isFieldToShow('minPrice')">
+              <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+                {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.minPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="p-h-text"
+                v-if="
+                  isFieldToShow('currentPriceUnit') &&
+                  itemData.currentPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.currentPriceUnit ? itemData.currentPriceUnit : "元"
+                }}
+              </div>
+            </template>
+            <div
+              class="p-h-dash"
+              v-if="
+                isFieldToShow('minPrice') &&
+                isFieldToShow('maxPrice') &&
+                itemData.minPrice &&
+                itemData.minPrice >= 0 &&
+                itemData.maxPrice &&
+                itemData.maxPrice >= 0
+              "
+            >
+              -
+            </div>
+            <template v-if="isFieldToShow('maxPrice')">
+              <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+                {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.maxPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="p-h-text"
+                v-if="
+                  isFieldToShow('currentPriceUnit') &&
+                  itemData.currentPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.currentPriceUnit ? itemData.currentPriceUnit : "元"
+                }}
+              </div>
+            </template>
+          </div>
+        </div>
+        <!-- 现价什么信息都没有 -->
+        <div v-else-if="gdNoCurrentInfo" class="r-price-dev">
+          <div class="price-height-color">
+            <!-- 原价前缀 -->
+            <template
+              v-if="
+                isFieldToShow('originalPricePrefix') &&
+                itemData.originalPricePrefix
+              "
+            >
+              <div class="p-h-price">
+                {{ itemData.originalPricePrefix }}
+              </div>
+            </template>
+            <!-- 原价+原价单位 -->
+            <template
+              v-if="
+                isFieldToShow('originalPrice') &&
+                itemData.originalPrice &&
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit
+              "
+            >
+              <div class="p-h-unit">
+                {{
+                  isFieldToShow("originalPriceUnit") &&
+                  itemData.originalPriceUnit == "元"
+                    ? "¥"
+                    : ""
+                }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+              </div>
+              <div class="p-h-text" v-if="itemData.originalPriceUnit !== '元'">
+                {{
+                  itemData.originalPriceUnit ? itemData.originalPriceUnit : ""
+                }}
+              </div>
+              <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+                <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+                <span class="p-ai-text">AI豆可抵</span>
+              </div>
+            </template>
+            <!-- 什么原价信息都没有 -->
+            <template v-else>
+              <!-- <div class="p-h-price">？？？</div> -->
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- 除广东外价格展示逻辑 -->
+      <template v-else>
+        <!-- 新增    券后价  划线价 -->
+        <div
+          v-if="
+            hasCouponAndOriginalPrice &&
+            isFieldToShow('couponPrice') &&
+            isFieldToShow('originalPrice')
+          "
+          class="r-price-dev"
+        >
+          <div class="jiangsu-price">
+            <div class="price-height-color">
+              <div class="p-h-unit">
+                {{
+                  isFieldToShow("currentPriceUnit") &&
+                  itemData.currentPriceUnit == "元"
+                    ? "¥"
+                    : ""
+                }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.couponPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="p-h-text"
+                v-if="
+                  isFieldToShow('currentPriceUnit') &&
+                  itemData.currentPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.currentPriceUnit ? itemData.currentPriceUnit : "元"
+                }}
+              </div>
+              <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+                <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+                <span class="p-ai-text">AI豆可抵</span>
+              </div>
+            </div>
+            <svg
+              viewBox="0 0 89 32"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="03-江苏-券化商品1"
+                  transform="translate(-343.000000, -683.000000)"
+                >
+                  <g id="02" transform="translate(30.000000, 497.000000)">
+                    <g id="item" transform="translate(31.000000, 107.000000)">
+                      <g id="text" transform="translate(206.000000, 26.000000)">
+                        <g
+                          id="编组-5"
+                          transform="translate(0.000000, 49.000000)"
+                        >
+                          <g
+                            id="编组-2备份"
+                            transform="translate(0.000000, 4.000000)"
+                          >
+                            <g
+                              id="编组"
+                              transform="translate(76.000000, 0.000000)"
+                            >
+                              <path
+                                d="M75.603472,0.5 C77.3679698,0.5 79.0131211,1.11505338 80.3107321,2.16118999 C81.6083432,3.2073266 82.5584142,4.68454644 82.9327514,6.40887937 L82.9327514,6.40887937 L88.379808,31.5 L6,31.5 C4.48121694,31.5 3.10621694,30.8843915 2.1109127,29.8890873 C1.11560847,28.8937831 0.5,27.5187831 0.5,26 L0.5,26 L0.5,6 C0.5,4.48121694 1.11560847,3.10621694 2.1109127,2.1109127 C3.10621694,1.11560847 4.48121694,0.5 6,0.5 L6,0.5 Z"
+                                id="矩形"
+                                stroke="#FFE0E0"
+                                fill="#FFF1F1"
+                                transform="translate(44.500000, 16.000000) scale(-1, 1) translate(-44.500000, -16.000000) "
+                              ></path>
+                              <path
+                                d="M6,1 L74.816839,1 C78.5808071,1 81.8356866,3.62382716 82.6345706,7.3020387 L87.7816162,31 L87.7816162,31 L6,31 C2.6862915,31 -4.92325827e-15,28.3137085 0,25 L0,7 C-4.05812251e-16,3.6862915 2.6862915,1 6,1 Z"
+                                id="矩形"
+                                fill="#FFF1F1"
+                                transform="translate(43.890808, 16.000000) scale(-1, 1) translate(-43.890808, -16.000000) "
+                              ></path>
+                              <path
+                                d="M17.278,26.548 C19.148,25.646 20.556,24.634 21.502,23.49 C22.228,22.566 22.822,21.312 23.262,19.75 L28.234,19.75 C28.146,21.73 27.948,23.006 27.684,23.622 C27.42,24.194 26.892,24.502 26.056,24.502 C25.11,24.502 24.098,24.458 22.998,24.414 L23.548,26.372 L27.068,26.372 C27.948,26.328 28.608,26.042 29.026,25.558 C29.444,25.052 29.752,24.172 29.928,22.896 C30.06,21.752 30.17,20.322 30.236,18.562 C31.072,19.244 32.04,19.904 33.14,20.542 L34.504,18.848 C32.216,17.792 30.522,16.626 29.444,15.328 L33.778,15.328 L33.778,13.436 L23.13,13.436 C23.482,12.798 23.812,12.138 24.12,11.456 L32.568,11.456 L32.568,9.608 L29.488,9.608 C30.126,8.772 30.676,7.782 31.138,6.682 L29.4,6.066 C28.96,7.21 28.41,8.2 27.728,9.08 L28.696,9.608 L24.802,9.608 C25.132,8.552 25.396,7.452 25.616,6.264 L23.548,6 C23.35,7.276 23.064,8.464 22.69,9.608 L19.764,9.608 L20.908,9.08 C20.468,8.046 19.962,7.078 19.39,6.154 L17.586,6.748 C18.114,7.584 18.642,8.53 19.126,9.608 L15.936,9.608 L15.936,11.456 L21.942,11.456 C21.612,12.138 21.238,12.798 20.82,13.436 L14.726,13.436 L14.726,15.328 L19.302,15.328 C17.872,16.824 16.112,18.012 14,18.914 L15.144,20.674 C16.376,20.08 17.498,19.398 18.554,18.606 L18.554,19.75 L21.304,19.75 C20.93,20.894 20.424,21.818 19.764,22.522 C18.884,23.38 17.63,24.172 15.958,24.898 L17.278,26.548 Z M29.378,17.814 L19.522,17.814 C20.358,17.066 21.15,16.23 21.854,15.328 L27.266,15.328 C27.794,16.164 28.498,17 29.378,17.814 Z M37.562,26.482 C39.388,23.534 40.378,19.596 40.51,14.624 L40.51,14.338 L56.13,14.338 L56.13,12.314 L40.51,12.314 L40.51,9.674 C45.834,9.542 50.652,9.058 54.942,8.244 L53.908,6.352 C49.376,7.254 44.206,7.738 38.442,7.782 L38.442,14.624 C38.332,18.98 37.518,22.39 36.022,24.854 L37.562,26.482 Z M44.272,26.526 L44.272,25.646 L52.39,25.646 L52.39,26.526 L54.48,26.526 L54.48,16.934 L42.182,16.934 L42.182,26.526 L44.272,26.526 Z M52.39,23.6 L44.272,23.6 L44.272,18.936 L52.39,18.936 L52.39,23.6 Z M62.796,26.416 L62.796,11.17 C63.456,9.85 64.006,8.486 64.446,7.056 L62.488,6.132 C61.52,9.476 60.002,12.402 57.956,14.91 L58.66,17.154 C59.364,16.362 60.046,15.526 60.684,14.646 L60.684,26.416 L62.796,26.416 Z M64.292,15.834 C66.866,14.074 69,11.566 70.672,8.332 C72.146,11.214 74.39,13.634 77.382,15.614 L78.548,13.832 C75.292,11.676 72.982,9.19 71.64,6.33 L69.726,6.33 C68.186,9.498 65.986,12.072 63.126,14.052 L64.292,15.834 Z M74.522,26.328 L74.522,13.986 L72.498,13.986 L72.498,26.328 L74.522,26.328 Z M65.744,26.614 C67.856,24.656 68.934,21.554 68.978,17.308 L68.978,14.052 L66.954,14.052 L66.954,17.308 C66.91,20.96 65.986,23.6 64.182,25.25 L65.744,26.614 Z"
+                                id="券后价"
+                                fill="#F3513B"
+                                fill-rule="nonzero"
+                              ></path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div
+            class="line"
+            v-if="
+              Number(itemData.couponPrice || 0)
+                .toFixed(2)
+                .split('.')[0]
+                .toString().length <= 6
+            "
+          >
+            <!-- <div class="p-h-unit" v-if="itemData.originalPricePrefix ">{{itemData.originalPricePrefix  || '' }}</div> -->
+            <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+              {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="line-text">
+              {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="line-text"
+              v-if="
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit !== '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+          </div>
+        </div>
+
+        <!-- 1、原价、现价全有  【现价 -原价-】 -->
+        <div
+          v-else-if="
+            hasCurrentAndOriginalPrice &&
+            isFieldToShow('currentPrice') &&
+            isFieldToShow('originalPrice')
+          "
+          class="r-price-dev"
+        >
+          <div
+            class="price-height-color"
+            v-if="
+              isFieldToShow('currentPriceUnit') && isFieldToShow('currentPrice')
+            "
+          >
+            <div class="p-h-unit">
+              {{
+                isFieldToShow("currentPriceUnit") &&
+                itemData.currentPriceUnit == "元"
+                  ? "¥"
+                  : ""
+              }}
+            </div>
+            <div class="p-h-price">
+              {{ Number(itemData.currentPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="p-h-text"
+              v-if="
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPriceUnit !== '元'
+              "
+            >
+              {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "元" }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+          <div
+            class="line"
+            v-if="
+              Number(itemData.currentPrice || 0)
+                .toFixed(2)
+                .split('.')[0]
+                .toString().length <= 6
+            "
+          >
+            <!-- <div class="p-h-unit" v-if="itemData.originalPricePrefix ">{{itemData.originalPricePrefix  || '' }}</div> -->
+            <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+              {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="line-text">
+              {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="line-text"
+              v-if="
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit !== '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+          </div>
+        </div>
+        <!-- 2、只有现价，没有原价 【现价】 -->
+        <div
+          v-else-if="hasCurrentPrice && isFieldToShow('currentPrice')"
+          class="r-price-dev"
+        >
+          <div class="price-height-color">
+            <div class="p-h-unit">
+              {{
+                isFieldToShow("currentPriceUnit") &&
+                itemData.currentPriceUnit == "元"
+                  ? "¥"
+                  : ""
+              }}
+            </div>
+            <div class="p-h-price">
+              {{ Number(itemData.currentPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="p-h-text"
+              v-if="
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPriceUnit !== '元'
+              "
+            >
+              {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "元" }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+        </div>
+        <!-- 3、只有原价，没有现价；这种情况要把原价当成现价来展示 【原价】 -->
+        <div
+          v-else-if="hasOriginalPrice && isFieldToShow('originalPrice')"
+          class="r-price-dev"
+        >
+          <div class="price-height-color">
+            <div class="p-h-unit">
+              {{
+                isFieldToShow("originalPriceUnit") &&
+                itemData.originalPriceUnit == "元"
+                  ? "¥"
+                  : ""
+              }}
+            </div>
+            <div class="p-h-price">
+              {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="p-h-text"
+              v-if="
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit !== '元'
+              "
+            >
+              {{
+                itemData.originalPriceUnit ? itemData.originalPriceUnit : "元"
+              }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+        </div>
+        <!-- 4、有原价前缀且有价格和单位、有现价前缀且有价格和单位【现价前缀+价格+单位  -原价前缀+价格+单位-】 注：现价价格如果超过6位数，原价部分均不展示 -->
+        <div v-else-if="hasPrefixPriceAndUnit" class="r-price-dev">
+          <div
+            class="price-height-color"
+            v-if="
+              isFieldToShow('currentPricePrefix') &&
+              isFieldToShow('currentPriceUnit') &&
+              isFieldToShow('currentPrice')
+            "
+          >
+            <div class="p-h-unit" v-if="isFieldToShow('currentPricePrefix')">
+              {{ itemData.currentPricePrefix || "" }}
+            </div>
+            <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+              {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="p-h-price" v-if="isFieldToShow('currentPrice')">
+              {{ Number(itemData.currentPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="p-h-text"
+              v-if="
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPriceUnit !== '元'
+              "
+            >
+              {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "" }}
+            </div>
+            <div
+              class="p-h-text"
+              v-else-if="
+                isFieldToShow('currentPricePrefix') &&
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPricePrefix &&
+                itemData.currentPriceUnit == '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+          <div
+            class="line"
+            v-if="
+              Number(itemData.currentPrice || 0)
+                .toFixed(2)
+                .split('.')[0]
+                .toString().length <= 6
+            "
+          >
+            <!-- <div class="p-h-unit" v-if="itemData.originalPricePrefix ">{{itemData.originalPricePrefix  || '' }}</div> -->
+            <div class="p-h-unit" v-if="isFieldToShow('originalPricePrefix')">
+              {{ itemData.originalPricePrefix || "" }}
+            </div>
+            <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+              {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="line-text">
+              {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="line-text"
+              v-if="
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit !== '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+          </div>
+        </div>
+        <!-- 5、只有现价前缀，没有价格和单位  【现价前缀】 -->
+        <div v-else-if="hasCurrentPricePrefix" class="r-price-dev">
+          <div
+            class="price-height-color"
+            v-if="isFieldToShow('currentPricePrefix')"
+          >
+            <div class="p-h-unit" v-if="isFieldToShow('currentPricePrefix')">
+              {{ itemData.currentPricePrefix || "" }}
+            </div>
+          </div>
+        </div>
+        <!--6、有区间价，没有原价和现价-->
+        <div v-else-if="hasMinMaxInterval" class="r-price-dev">
+          <div class="price-height-color">
+            <template v-if="isFieldToShow('minPrice')">
+              <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+                {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.minPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="p-h-text"
+                v-if="
+                  isFieldToShow('currentPriceUnit') &&
+                  itemData.currentPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.currentPriceUnit ? itemData.currentPriceUnit : "元"
+                }}
+              </div>
+            </template>
+            <div
+              class="p-h-dash"
+              v-if="
+                isFieldToShow('minPrice') &&
+                isFieldToShow('maxPrice') &&
+                itemData.minPrice &&
+                itemData.minPrice >= 0 &&
+                itemData.maxPrice &&
+                itemData.maxPrice >= 0
+              "
+            >
+              -
+            </div>
+            <template v-if="isFieldToShow('maxPrice')">
+              <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+                {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+              </div>
+              <div class="p-h-price">
+                {{ Number(itemData.maxPrice || 0).toFixed(2) }}
+              </div>
+              <div
+                class="p-h-text"
+                v-if="
+                  isFieldToShow('currentPriceUnit') &&
+                  itemData.currentPriceUnit !== '元'
+                "
+              >
+                {{
+                  itemData.currentPriceUnit ? itemData.currentPriceUnit : "元"
+                }}
+              </div>
+            </template>
+          </div>
+        </div>
+        <!-- 7、有价格和单位但无原价前缀、有现价前缀且有价格和单位 【现价前缀+价格+单位  -原价价格+单位-】注：现价价格如果超过6位数，原价部分均不展示 -->
+        <div v-else-if="hasCrtPrxNoOrgPrx" class="r-price-dev">
+          <div
+            class="price-height-color"
+            v-if="
+              isFieldToShow('currentPricePrefix') &&
+              isFieldToShow('currentPriceUnit') &&
+              isFieldToShow('currentPrice')
+            "
+          >
+            <div class="p-h-unit" v-if="isFieldToShow('currentPricePrefix')">
+              {{ itemData.currentPricePrefix || "" }}
+            </div>
+            <div class="p-h-unit" v-if="isFieldToShow('currentPriceUnit')">
+              {{ itemData.currentPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="p-h-price" v-if="isFieldToShow('currentPrice')">
+              {{ Number(itemData.currentPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="p-h-text"
+              v-if="
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPriceUnit !== '元'
+              "
+            >
+              {{ itemData.currentPriceUnit ? itemData.currentPriceUnit : "" }}
+            </div>
+            <div
+              class="p-h-text"
+              v-else-if="
+                isFieldToShow('currentPricePrefix') &&
+                isFieldToShow('currentPriceUnit') &&
+                itemData.currentPricePrefix &&
+                itemData.currentPriceUnit == '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+            <div class="p-aiDou" v-if="itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1'" :style="{marginTop: itemData.supportAiDouPayment && itemData.supportAiDouPayment == '1' ? '-2px': '0px'}" :class="{'p-aiDou-hm': isHarmony}">
+              <img class="p-ai-img" :src="require('@/assets/images/aidou.png')" />
+              <span class="p-ai-text">AI豆可抵</span>
+            </div>
+          </div>
+          <div
+            class="line"
+            v-if="
+              Number(itemData.currentPrice || 0)
+                .toFixed(2)
+                .split('.')[0]
+                .toString().length <= 6
+            "
+          >
+            <div class="p-h-unit" v-if="isFieldToShow('originalPriceUnit')">
+              {{ itemData.originalPriceUnit == "元" ? "¥" : "" }}
+            </div>
+            <div class="line-text">
+              {{ Number(itemData.originalPrice || 0).toFixed(2) }}
+            </div>
+            <div
+              class="line-text"
+              v-if="
+                isFieldToShow('originalPriceUnit') &&
+                itemData.originalPriceUnit !== '元'
+              "
+            >
+              {{ "元" }}
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</template>
+
+<script>
+import { isAndroid, isHarmony } from "@/utils/tool";
+export default {
+  props: {
+    itemData: {
+      type: Object,
+    },
+    itemParentTemplateId: {
+      type: String,
+    },
+    itemParentTemplateFieldList: {
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      isGuangDong: false,
+      isAndroid: isAndroid,
+      isHarmony: isHarmony()
+    };
+  },
+  computed: {
+    gdCurrentPriceAndUnit() {
+      // 广东商城数据 价格+单位 与 前缀互斥
+      return (
+        this.itemData.currentPrice !== undefined &&
+        this.itemData.currentPrice !== null &&
+        this.itemData.currentPrice >= 0 &&
+        this.itemData.currentPriceUnit !== undefined &&
+        this.itemData.currentPriceUnit !== null
+      );
+    },
+    gdCurrentPricePrefix() {
+      // 广东商城数据 价格+单位 与 前缀互斥
+      return (
+        this.itemData.currentPricePrefix !== undefined &&
+        this.itemData.currentPricePrefix !== null &&
+        this.itemData.currentPricePrefix !== ""
+      );
+    },
+    gdHasMinMaxInterval() {
+      // 有区间价格
+      return (
+        this.itemData.minPrice !== undefined &&
+        this.itemData.minPrice !== null &&
+        this.itemData.minPrice !== "" &&
+        this.itemData.maxPrice !== undefined &&
+        this.itemData.maxPrice !== null &&
+        this.itemData.maxPrice !== "" &&
+        (this.itemData.currentPrice === undefined ||
+          this.itemData.currentPrice === null ||
+          this.itemData.currentPrice === "" ||
+          this.itemData.currentPriceUnit === undefined ||
+          this.itemData.currentPriceUnit === null ||
+          this.itemData.currentPriceUnit === "" ||
+          this.itemData.currentPricePrefix === undefined ||
+          this.itemData.currentPricePrefix === null ||
+          this.itemData.currentPricePrefix === "") &&
+        (this.itemData.originalPrice === undefined ||
+          this.itemData.originalPrice === null ||
+          this.itemData.originalPrice === "" ||
+          this.itemData.originalPriceUnit === undefined ||
+          this.itemData.originalPriceUnit === null ||
+          this.itemData.originalPriceUnit === "" ||
+          this.itemData.originalPricePrefix === undefined ||
+          this.itemData.originalPricePrefix === null ||
+          this.itemData.originalPricePrefix === "")
+      );
+    },
+    gdNoCurrentInfo() {
+      return (
+        (this.itemData.currentPricePrefix === undefined ||
+          this.itemData.currentPricePrefix === null ||
+          this.itemData.currentPricePrefix === "") &&
+        (this.itemData.currentPrice === undefined ||
+          this.itemData.currentPrice === null ||
+          this.itemData.currentPrice === "" ||
+          this.itemData.currentPriceUnit === undefined ||
+          this.itemData.currentPriceUnit === null ||
+          this.itemData.currentPriceUnit === "")
+      );
+    },
+    hasCurrentAndOriginalPrice() {
+      return (
+        this.itemData.currentPrice !== undefined &&
+        this.itemData.currentPrice !== null &&
+        this.itemData.currentPrice >= 0 &&
+        this.itemData.originalPrice !== undefined &&
+        this.itemData.originalPrice !== null &&
+        this.itemData.originalPrice >= 0
+      );
+    },
+    hasCouponAndOriginalPrice() {
+      return (
+        this.itemData.couponPrice !== undefined &&
+        this.itemData.couponPrice !== null &&
+        this.itemData.couponPrice >= 0 &&
+        this.itemData.originalPrice !== undefined &&
+        this.itemData.originalPrice !== null &&
+        this.itemData.originalPrice >= 0
+      );
+    },
+    hasCurrentPrice() {
+      return (
+        this.itemData.currentPrice !== undefined &&
+        this.itemData.currentPrice !== null &&
+        this.itemData.currentPrice >= 0 &&
+        (this.itemData.originalPrice == undefined ||
+          this.itemData.originalPrice === null)
+      );
+    },
+    hasOriginalPrice() {
+      return (
+        this.itemData.originalPrice !== undefined &&
+        this.itemData.originalPrice !== null &&
+        this.itemData.originalPrice >= 0 &&
+        (this.itemData.currentPrice == undefined ||
+          this.itemData.currentPrice === null)
+      );
+    },
+    hasPrefixPriceAndUnit() {
+      return (
+        this.itemData.currentPrice !== undefined &&
+        this.itemData.currentPrice !== null &&
+        this.itemData.currentPrice >= 0 &&
+        this.itemData.currentPricePrefix !== undefined &&
+        this.itemData.currentPricePrefix !== null &&
+        this.itemData.currentPriceUnit !== undefined &&
+        this.itemData.currentPriceUnit !== null &&
+        this.itemData.originalPrice !== undefined &&
+        this.itemData.originalPrice !== null &&
+        this.itemData.originalPrice >= 0 &&
+        this.itemData.originalPricePrefix !== undefined &&
+        this.itemData.originalPricePrefix !== null &&
+        this.itemData.originalPriceUnit !== undefined &&
+        this.itemData.originalPriceUnit !== null
+      );
+    },
+    hasCurrentPricePrefix() {
+      return (
+        this.itemData.currentPricePrefix !== undefined &&
+        this.itemData.currentPricePrefix !== null &&
+        (this.itemData.currentPrice == undefined ||
+          this.itemData.currentPrice == null ||
+          this.itemData.currentPrice >= 0) &&
+        (this.itemData.originalPrice == undefined ||
+          this.itemData.originalPrice == null ||
+          this.itemData.originalPrice >= 0) &&
+        (this.itemData.currentPriceUnit == undefined ||
+          this.itemData.currentPriceUnit == null) &&
+        (this.itemData.originalPriceUnit == undefined ||
+          this.itemData.originalPriceUnit == null)
+      );
+    },
+    hasMinMaxInterval() {
+      return (
+        this.itemData.minPrice !== undefined &&
+        this.itemData.maxPrice !== undefined &&
+        (this.itemData.currentPrice == undefined ||
+          this.itemData.currentPrice == null ||
+          this.itemData.currentPrice >= 0) &&
+        (this.itemData.originalPrice == undefined ||
+          this.itemData.originalPrice == null ||
+          this.itemData.originalPrice >= 0)
+      );
+    },
+    hasCrtPrxNoOrgPrx() {
+      return (
+        (this.itemData.originalPricePrefix == undefined ||
+          this.itemData.originalPricePrefix == null) &&
+        this.itemData.currentPrice !== undefined &&
+        this.itemData.currentPrice !== null &&
+        this.itemData.currentPrice >= 0 &&
+        this.itemData.currentPricePrefix !== undefined &&
+        this.itemData.currentPricePrefix !== null &&
+        this.itemData.currentPriceUnit !== undefined &&
+        this.itemData.currentPriceUnit !== null &&
+        this.itemData.originalPrice !== undefined &&
+        this.itemData.originalPrice !== null &&
+        this.itemData.originalPrice >= 0 &&
+        this.itemData.originalPriceUnit !== undefined &&
+        this.itemData.originalPriceUnit !== null
+      );
+    },
+  },
+  mounted() {
+    const userInfo = localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null;
+    this.isGuangDong = userInfo?.loginProvince === "200" ? true : false;
+  },
+  methods: {
+    /**
+     * wholeTemplateFieldList/verticalTemplateFieldList --字段是否展示
+     * @param {*} field
+     */
+    isFieldToShow(field) {
+      if (this.itemParentTemplateFieldList) {
+        return this.itemParentTemplateFieldList.includes(field);
+      }
+    },
+  },
+};
+</script>
+
+<style scoped lang='scss'>
+.r-price {
+  font-size: 28px;
+  color: #999;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  .r-price-dev {
+    display: flex;
+    align-items: center;
+  }
+  .price-height-color {
+    font-size: 32px;
+    font-weight: 600;
+    padding-right: 24px;
+    display: flex;
+    align-items: center;
+    .p-h-unit {
+      font-size: 24px;
+      line-height: 24px;
+      font-weight: normal;
+    }
+    .p-h-price {
+      line-height: 28px;
+    }
+    .p-h-dash {
+      font-weight: normal !important;
+      padding: 0px 6px;
+      line-height: 28px;
+    }
+    .p-h-text {
+      font-size: 24px;
+      font-weight: normal;
+      line-height: 24px;
+    }
+    .p-aiDou {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 132px;
+      height: 32px;
+      background: #F5F5F5;
+      border-radius: 6px;
+      margin-left: 12px;
+      padding: 2px 0px 2px 8px;
+      // line-height: 32px;
+      
+      .p-ai-img {
+        height: 28px;
+        width: 28px;
+      }
+      .p-ai-text {
+        display: flex;
+        align-items: center;
+        font-family: PingFangSC, PingFang SC;
+        font-weight: 500;
+        font-size: 20px;
+        color: #333333;
+        // line-height: 28px;
+        margin-left: 6px;
+      }
+    }
+    .p-aiDou-hm{
+      margin-top: 2px!important;
+    }
+  }
+  .line {
+    font-size: 24px;
+    text-decoration: line-through;
+    font-weight: normal;
+    display: flex;
+    align-items: flex-end;
+    line-height: 24px;
+    .line-text {
+      line-height: 24px;
+    }
+  }
+  .jiangsu-price {
+    height: 32px;
+    display: flex;
+    background-image: linear-gradient(90deg, #ff543b 10%, #ffa163 90%);
+    border-radius: 6px;
+    margin-right: 30px;
+    .p-h-unit {
+      font-size: 24px;
+      line-height: 29px;
+    }
+    .p-h-price {
+      font-size: 28px;
+      line-height: 32px;
+    }
+    .price-height-color {
+      color: #fff;
+      padding-right: 8px;
+      padding-left: 12px;
+    }
+    svg {
+      height: 32px;
+      width: 89px;
+    }
+  }
+}
+</style>

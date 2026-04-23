@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "DIN-Condensed";
+  /* Project id 4036179 */
+  src: url('DIN-Condensed.ttf?t=1689556549812') format('truetype'),
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // font-family: Arial, Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, PingFangSC-Regular, sans-serif,
+  //   PingFang SC;
+  // font-family: Helvetica, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  color: #333333;
+  // background: #f7f7f7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+}
+
+input {
+  -webkit-user-select: auto;
+  /*webkit浏览器*/
+}
+
+#app,
+.app-wrapper {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.FFFF-bg {
+  background-color: #fff;
+}
+
+.F7F7F7-bg {
+  background-color: #F7F7F7;
+}
+
+//搜索结果页样式
+$theme-color: #2892FF;
+$price-height-color: #F3513B;
+
+.module-wrap {
+  font-size: 24px;
+}
+
+.height-light-color {
+  color: $theme-color;
+}
+
+.price-height-color {
+  color: $price-height-color;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.bg-00BB7C {
+  background: #00BB7C;
+}
+
+.bg-FF7627 {
+  background: #FF7627;
+}
+
+.bg-2892FF {
+  background: #2892FF;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.s-iconfont {
+  font-size: inherit;
+}
+
+#preLoading {
+  // display: none;
+}
+
+#correction_container {
+  margin-top: calc(100vw / 750 * 30);
+  margin-bottom: calc(100vw / 750 * 25);
+  font-size: calc(100vw / 750 * 24);
+  color: #999;
+
+  .word {
+    color: #000;
+  }
+
+  .van-icon {
+    font-size: calc(100vw / 750 * 28);
+    margin-right: calc(100vw / 750 * 10);
+  }
+}
+
+// 重写ai搜索大模型实例dom左右边距
+.zxkf_AI_sdk-container {
+  margin: 0px 0px 12px 0px !important;
+}

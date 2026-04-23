@@ -1,0 +1,165 @@
+.van-img {
+    text-align: center;
+    // ::v-deep .van-image__img {
+    //     width: auto;
+    //     height: auto;
+    //     vertical-align: middle;
+    // }
+    // ::v-deep .van-image__error {
+    //     background-color: initial!important;
+    // }
+}
+
+.default-img {
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+}
+
+.default-1 {
+    max-width: 2rem;
+    max-height: 2rem;
+}
+
+.default-2 {
+    max-width: 1.333rem;
+    max-height: 1.333rem;
+}
+
+.default-3 {
+    max-width: 1.8666rem;
+    max-height: 1.8666rem;
+}
+
+.default-4 {
+    max-width: 1.8666rem;
+    max-height: 1.333rem;
+}
+
+.default-5 {
+    max-width: 1.8666rem;
+    max-height: 2.7143rem;
+}
+
+.default-11 {
+    max-width: 2rem;
+    max-height: 1.03rem;
+}
+
+.default-12 {
+    max-width: 1.76rem;
+    max-height: 1.28rem;
+}
+
+.default-13 {
+    max-width: 2rem;
+    max-height: 1.12rem;
+}
+
+// .img-1 {
+//     ::v-deep .van-image__img {
+//         max-width: 2rem;
+//         max-height: 2rem;
+//     }
+// }
+
+// .img-2 {
+//     ::v-deep .van-image__img {
+//         max-width: 1.333rem;
+//         max-height: 1.333rem;
+//     }
+// }
+
+// .img-3 {
+//     ::v-deep .van-image__img {
+//         max-width: 1.8666rem;
+//         max-height: 1.8666rem;
+//     }
+// }
+
+// .img-4 {
+//     ::v-deep .van-image__img {
+//         max-width: 2rem;
+//         max-height: 1.333rem;
+//     }
+// }
+
+// .img-5 {
+//     ::v-deep .van-image__img {
+//         max-width: 1.8666rem;
+//         max-height: 2.7143rem;
+//     }
+// }
+
+// .img-6 {
+//     ::v-deep .van-image__img {
+//         max-width: 2rem;
+//         max-height: 1.12rem;
+//     }
+
+//     ::v-deep .van-image__error {
+//         max-width: 2rem;
+//         max-height: 1.12rem;
+//     }
+// }
+
+// .img-7 {
+//     ::v-deep .van-image__img {
+//         max-width: 8.4rem;
+//         max-height: 4.72rem;
+//     }
+
+//     ::v-deep .van-image__error {
+//         max-width: 8.4rem;
+//         max-height: 4.72rem;
+//     }
+// }
+
+// 政企案例左图右文左侧图片
+.img-11 {
+    ::v-deep .van-image__img {
+        max-width: 2rem;
+        max-height: 1.03rem
+    }
+
+    ::v-deep .van-image__error {
+        max-width: 2rem;
+        max-height: 1.03rem;
+    }
+}
+
+// 政企新闻左图右文左侧图片
+.img-12 {
+    ::v-deep .van-image__img {
+        max-width: 1.76rem;
+        max-height: 1.28rem;
+    }
+
+    ::v-deep .van-image__error {
+        max-width: 1.76rem;
+        max-height: 1.28rem;
+    }
+}
+
+// 政企视频左图右文左侧图片
+.img-13 {
+    ::v-deep .van-image__img {
+        max-width: 2rem;
+        max-height: 1.12rem;
+    }
+
+    ::v-deep .van-image__error {
+        max-width: 2rem;
+        max-height: 1.12rem;
+    }
+}
+
+// 政企视频展示图正常加载需添加可播放标识
+.zq-video {
+    width: 48px !important;
+    height: 48px !important;
+    position: absolute;
+    left: 0.9rem; // 以外层c-i-left元素为基准绝对定位
+    // margin: 0 auto;
+    top: 0.24rem;
+}

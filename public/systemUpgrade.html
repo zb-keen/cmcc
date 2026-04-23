@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="description" content="端内搜索H5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style type="text/css">
+      body{
+        background: #f7f7f7;
+        height:100%;
+        margin:0px;
+      }
+      .border-radius{
+        border-radius: 18px;
+      }
+      .h-overflow{
+        height: 100%;
+        overflow-y: auto;
+        scrollbar-width: none;
+        position: relative;
+      }
+      .h-overflow::-webkit-scrollbar {
+        display: none;
+      }
+      .h-overflow::-webkit-scrollbar {
+        display: none;
+      }
+      .no-data{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 20px 0px #F6F6F6;
+        padding-bottom:78px;
+      }
+      .no-data img{
+        /* margin-top: 208px;
+        width: 612px; */
+      }
+      .no-data .p-title{
+        font-family: PingFangSC, PingFang SC;
+        font-weight: 600;
+        color: #000000;
+      }
+      .no-data .p-cnt{
+        /* font-size: 28px; */
+        color: #666666;
+        /* line-height: 26px; */
+        /* margin-top: 14px; */
+      }
+      .cover {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index:5 ;
+        width: 100%;
+        /* height: 9px; */
+      }
+      .cover > svg {
+        width: 9px;
+        height: 9px;
+      }
+      .cover > svg:first-child {
+        float: left;
+      }
+      .cover > svg:last-child {
+        float: right;
+      }
+      </style>
+  </head>
+  <body>
+    <div class="h-overflow" style="border-radius: 18px; margin:30px 30px 0px 30px;">
+      <div class="cover"  style="height: 18px;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" version="1.1" style="height: 18px;width:18px;">
+          <g id="" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <path d="M0,0 L18,0 L17.6693348,0.0029762956 C7.88078333,0.179318477 -1.20390968e-15,8.16933145 0,18 L0,18 L0,0 Z" fill="#F7F7F7"/>
+          </g>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 18 18" version="1.1" style="height: 18px;width:18px;">
+          <g id="" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <path d="M0,0 L18,0 L17.6693348,0.0029762956 C7.88078333,0.179318477 -1.20390968e-15,8.16933145 0,18 L0,18 L0,0 Z" fill="#F7F7F7" transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000) "/>
+          </g>
+        </svg>
+      </div>
+      <div class="no-data" style="box-shadow: 0px 4px 20px 0px #F6F6F6; padding-bottom:78px;">
+        <img style="margin-top: 334px; width: 95%;" 
+        src="./540eeeb8f8e9343e.png" draggable="false" alt="" />
+        <p class="p-title" style="font-size: 32px; margin-top: 46px;margin-bottom: 0px;">系统升级维护中</p>
+        <p class="p-cnt" style="font-size: 28px; margin-top: 37px;">请稍后访问，给您造成不便十分抱歉！</p>
+      </div>  
+    </div>
+    <script  type="text/javascript">
+      document.title = '系统维护';
+      // 在页面加载完成后执行转换
+      window.addEventListener('DOMContentLoaded', function() {
+        var baseFontSize = 16; // 基准字体大小
+
+        // 获取页面宽度并计算基准值
+        function calculateRem() {
+          var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+          var rem = screenWidth / 75; // 根据设计稿宽度/75 计算 rem 值
+
+          // 将所有带有 px 单位的样式转换为 rem 单位
+          var elements = document.querySelectorAll('*[style]');
+          for (var i = 0; i < elements.length; i++) {
+            var style = elements[i].style.cssText;
+            var convertedStyle = style.replace(/(\d+)px/g, function(match, value) {
+              return (parseFloat(value) * 2  / 75)  + 'rem';
+            });
+            elements[i].style.cssText = convertedStyle;
+          }
+        }
+        
+        calculateRem(); // 初始加载时执行一次转换
+        var windowHeight = window.innerHeight;
+        document.querySelectorAll('.no-data')[0].style.height = (windowHeight-112)+'px';
+        
+        // 监听窗口大小变化，实时更新 rem 值
+        window.addEventListener('resize', function() {
+          calculateRem();
+          var windowHeight = window.innerHeight;
+          document.querySelectorAll('.no-data')[0].style.height = (windowHeight-112)+'px';
+        });
+      });
+    </script>
+  </body>
+</html>

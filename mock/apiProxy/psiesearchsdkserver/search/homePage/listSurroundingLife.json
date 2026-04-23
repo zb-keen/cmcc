@@ -1,0 +1,246 @@
+{
+    "code": "000000",
+    "msg": "操作成功",
+    "info": null,
+    "data": {
+        "shopFoodList": [
+            {
+                "id": "755629055",
+                "shopName": "淳安汾口店",
+                "area": "杭州市",
+                "salesPageId": "11526",
+                "salesPageName": "古茗",
+                "salesPageCdnUrl": "https://res.coc.10086.cn/res/cdn/coc1/2023/05/15/1657921054590476288/guming.png",
+                "oneCid": "21",
+                "oneCname": "美食餐饮",
+                "twoCid": "1078",
+                "twoCname": "甜品饮品",
+                "skuList": [
+                    {
+                        "skuId": "19184",
+                        "skuName": "古茗优惠券（10元）",
+                        "skuShowName": "古茗10元券",
+                        "skuPrice": 1000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "19185",
+                        "skuName": "古茗优惠券（15元）",
+                        "skuShowName": "古茗15元券",
+                        "skuPrice": 1500,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31956",
+                        "skuName": "古茗优惠券（5元）",
+                        "skuShowName": "古茗5元券",
+                        "skuPrice": 500,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31957",
+                        "skuName": "古茗优惠券（20元）",
+                        "skuShowName": "古茗20元券",
+                        "skuPrice": 2000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31958",
+                        "skuName": "古茗优惠券（30元）",
+                        "skuShowName": "古茗30元券",
+                        "skuPrice": 3000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31959",
+                        "skuName": "古茗优惠券（40元）",
+                        "skuShowName": "古茗40元券",
+                        "skuPrice": 4000,
+                        "skuVipPrice": null
+                    }
+                ],
+                "detailUrl": "https://dev.coc.10086.cn/coc3/canvas/rightsmarket-h5-canvas/online/detail?mid=11526&channelCode=P00000092338",
+                "distance": "251355"
+            },
+            {
+                "id": "755630401",
+                "shopName": "浙大银泉校内店",
+                "area": "淳安县",
+                "salesPageId": "11526",
+                "salesPageName": "古茗",
+                "salesPageCdnUrl": "https://res.coc.10086.cn/res/cdn/coc1/2023/05/15/1657921054590476288/guming.png",
+                "oneCid": "21",
+                "oneCname": "美食餐饮",
+                "twoCid": "1078",
+                "twoCname": "甜品饮品",
+                "skuList": [
+                    {
+                        "skuId": "19184",
+                        "skuName": "古茗优惠券（10元）",
+                        "skuShowName": "古茗10元券",
+                        "skuPrice": 1000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "19185",
+                        "skuName": "古茗优惠券（15元）",
+                        "skuShowName": "古茗15元券",
+                        "skuPrice": 1500,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31956",
+                        "skuName": "古茗优惠券（5元）",
+                        "skuShowName": "古茗5元券",
+                        "skuPrice": 500,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31957",
+                        "skuName": "古茗优惠券（20元）",
+                        "skuShowName": "古茗20元券",
+                        "skuPrice": 2000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31958",
+                        "skuName": "古茗优惠券（30元）",
+                        "skuShowName": "古茗30元券",
+                        "skuPrice": 3000,
+                        "skuVipPrice": null
+                    },
+                    {
+                        "skuId": "31959",
+                        "skuName": "古茗优惠券（40元）",
+                        "skuShowName": "古茗40元券",
+                        "skuPrice": 4000,
+                        "skuVipPrice": null
+                    }
+                ],
+                "detailUrl": "https://dev.coc.10086.cn/coc3/canvas/rightsmarket-h5-canvas/online/detail?mid=11526&channelCode=P00000092338",
+                "distance": "272574"
+            },
+            {
+                "id": "755608397",
+                "shopName": "千岛湖阳光鸡排店",
+                "area": "淳安县",
+                "salesPageId": "21099",
+                "salesPageName": "正新鸡排",
+                "salesPageCdnUrl": "https://res.coc.10086.cn/res/cdn/coc1/2024/04/15/1779769885677928448/zhengxinjipai.jpg",
+                "oneCid": "21",
+                "oneCname": "美食餐饮",
+                "twoCid": "1079",
+                "twoCname": "到店美食",
+                "skuList": [
+                    {
+                        "skuId": "40672",
+                        "skuName": "正新鸡排优惠满减券（10元）",
+                        "skuShowName": "正新鸡排10元券",
+                        "skuPrice": 1000,
+                        "skuVipPrice": 900
+                    },
+                    {
+                        "skuId": "40673",
+                        "skuName": "正新鸡排优惠满减券（30元）",
+                        "skuShowName": "正新鸡排30元券",
+                        "skuPrice": 3000,
+                        "skuVipPrice": 2700
+                    },
+                    {
+                        "skuId": "32103",
+                        "skuName": "正新鸡排优惠满减券（20元）",
+                        "skuShowName": "正新鸡排20元券",
+                        "skuPrice": 2000,
+                        "skuVipPrice": 1800
+                    },
+                    {
+                        "skuId": "40671",
+                        "skuName": "正新鸡排优惠满减券（5元）",
+                        "skuShowName": "正新鸡排5元券",
+                        "skuPrice": 500,
+                        "skuVipPrice": 450
+                    }
+                ],
+                "detailUrl": "https://dev.coc.10086.cn/coc3/canvas/rightsmarket-h5-canvas/online/detail?mid=21099&channelCode=P00000092338",
+                "distance": "291278"
+            },
+            {
+                "id": "755920853",
+                "shopName": "正新鸡排（千岛湖阳光鸡排店）",
+                "area": "淳安县",
+                "salesPageId": "21099",
+                "salesPageName": "正新鸡排",
+                "salesPageCdnUrl": "https://res.coc.10086.cn/res/cdn/coc1/2024/04/15/1779769885677928448/zhengxinjipai.jpg",
+                "oneCid": "21",
+                "oneCname": "美食餐饮",
+                "twoCid": "1079",
+                "twoCname": "到店美食",
+                "skuList": [
+                    {
+                        "skuId": "40672",
+                        "skuName": "正新鸡排优惠满减券（10元）",
+                        "skuShowName": "正新鸡排10元券",
+                        "skuPrice": 1000,
+                        "skuVipPrice": 900
+                    },
+                    {
+                        "skuId": "40673",
+                        "skuName": "正新鸡排优惠满减券（30元）",
+                        "skuShowName": "正新鸡排30元券",
+                        "skuPrice": 3000,
+                        "skuVipPrice": 2700
+                    },
+                    {
+                        "skuId": "32103",
+                        "skuName": "正新鸡排优惠满减券（20元）",
+                        "skuShowName": "正新鸡排20元券",
+                        "skuPrice": 2000,
+                        "skuVipPrice": 1800
+                    },
+                    {
+                        "skuId": "40671",
+                        "skuName": "正新鸡排优惠满减券（5元）",
+                        "skuShowName": "正新鸡排5元券",
+                        "skuPrice": 500,
+                        "skuVipPrice": 450
+                    }
+                ],
+                "detailUrl": "https://dev.coc.10086.cn/coc3/canvas/rightsmarket-h5-canvas/online/detail?mid=21099&channelCode=P00000092338",
+                "distance": "291278"
+            }
+        ],
+        "movieList": [
+            {
+                "filmDetailUrl": "https://movie.miguvideo.com/mgyy/site/prd/detail.html?pageId=138b3f0226834d48b09d940591d3e76a&cid=9004030412&filmId=71097&filmName=射雕英雄传：侠之大者&tokentype=ANDT&sourceid=012010&channelId=MGYYB000008",
+                "filmName": "射雕英雄传：侠之大者",
+                "imgUrl": "https://wapx.cmvideo.cn/publish/oes-content/images/9004/030/412/9004030412/202411181334_977389_H169_1080.jpg",
+                "score": "8.3"
+            },
+            {
+                "filmDetailUrl": "https://movie.miguvideo.com/mgyy/site/prd/detail.html?pageId=138b3f0226834d48b09d940591d3e76a&cid=9004034378&filmId=71242&filmName=机动战士高达：跨时之战&tokentype=ANDT&sourceid=012010&channelId=MGYYB000008",
+                "filmName": "机动战士高达：跨时之战",
+                "imgUrl": "https://wapx.cmvideo.cn/publish/oes-content/images/9004/034/378/9004034378/202503201556_354222_H169_1080.jpg",
+                "score": "8.8"
+            },
+            {
+                "filmDetailUrl": "https://movie.miguvideo.com/mgyy/site/prd/detail.html?pageId=138b3f0226834d48b09d940591d3e76a&cid=9003062499&filmId=71252&filmName=猎狐·行动&tokentype=ANDT&sourceid=012010&channelId=MGYYB000008",
+                "filmName": "猎狐·行动",
+                "imgUrl": "https://wapx.cmvideo.cn/publish/oes-content/images/9003/062/499/9003062499/202011161045_20_05_H169_1080.jpg",
+                "score": "8.1"
+            },
+            {
+                "filmDetailUrl": "https://movie.miguvideo.com/mgyy/site/prd/detail.html?pageId=138b3f0226834d48b09d940591d3e76a&cid=9004035080&filmId=71264&filmName=触碰你&tokentype=ANDT&sourceid=012010&channelId=MGYYB000008",
+                "filmName": "触碰你",
+                "imgUrl": "https://wapx.cmvideo.cn/publish/oes-content/images/9004/035/080/9004035080/202504101121_160463_H169_1080.jpg",
+                "score": "8.5"
+            },
+            {
+                "filmDetailUrl": "https://movie.miguvideo.com/mgyy/site/prd/detail.html?pageId=138b3f0226834d48b09d940591d3e76a&cid=9004034048&filmId=71233&filmName=此心安处&tokentype=ANDT&sourceid=012010&channelId=MGYYB000008",
+                "filmName": "此心安处",
+                "imgUrl": "https://wapx.cmvideo.cn/publish/oes-content/images/9004/034/048/9004034048/202503191133_830333_H169_1080.jpg",
+                "score": "8.7"
+            }
+        ]
+    },
+    "extData": null
+}

@@ -1,0 +1,13 @@
+{
+    "code": "000000",
+    "msg": "获取成功",
+    "info": null,
+    "data": {
+        "code": "0",
+        "errMsg": null,
+        "data": {
+            "LZYZXUTS0250525": "1"
+        }
+    },
+    "extData": null
+}
