@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="description" content="端内搜索H5">
+  <link rel="icon" href="/ngpsie/psiesearchsdk/favicon.ico">
+  <!-- <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes"> -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script>
+    window.__SKYNET = {
+      appName: 'CMCCAPP',
+      checkNet:true, // 检查资源是否异常
+      usePathKey: true, // 是否使用页面路径作为上报Key
+      appVersion:'20250821',
+      rate: 20
+    }
+  </script>
+  <script src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/skynet-1.5.6.js" onerror="(function(script){ console.error('脚本加载失败: ', script); })(this)"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    ol,
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    #preLoading {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, .1);
+      z-index: 2;
+    }
+
+    .pre-dialog-box {
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      z-index: 3;
+      padding: 0 4vw;
+    }
+
+    .pre-svg-loading {
+      width: 10.666vw;
+      height: 10.666vw;
+      position: relative;
+    }
+
+    .pre-svg-loading svg {
+      width: 10.666vw;
+      height: 10.666vw;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    @keyframes rotateAnimation {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .pre-animated-path {
+      animation: rotateAnimation 1s linear infinite;
+      transform-origin: center center;
+    }
+
+    .pre-search-con-app {
+      height: 9.9786vw;
+      display: flex;
+      padding: 0.666vw 4vw 0.666vw 3.4vw;
+      align-items: center;
+      font-size: 3.4666vw;
+      margin-top: 5.586666vw;
+      background: #fff;
+
+    }
+
+    .pre-search-con-app .pre-icon {
+      /* width: 6.4vw;
+        height: 6.4vw; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1.6vw;
+      transform: translateY(-0.0666vw);
+    }
+
+    .pre-search-con-app .pre-icon svg {
+      width: 7.2vw;
+      height: 7.9vw;
+    }
+
+    .pre-search-con-app .pre-input-con {
+      flex: 1;
+      height: 8.07vw;
+      background: #ffffff;
+      border-radius: 4vw;
+      border: 0.27vw solid #2892ff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.6333vw 0 3.6vw;
+
+    }
+
+    .pre-search-con-app input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      height: 4vw;
+    }
+
+    .pre-search-con-app .pre-operate-con {
+      display: flex;
+      align-items: center;
+
+    }
+
+    .pre-search-con-app .pre-operate-con span {
+      font-size: 4.2666vw;
+      color: #b3b3b3;
+      margin: 0;
+    }
+
+    .pre-search-con-app .pre-operate-con img {
+      width: 4.26666vw;
+    }
+
+    .pre-search-con-app .pre-operate-con .pre-line {
+      width: 0.1333vw;
+      height: 2.666vw;
+      background: #cccccc;
+      border-radius: 0.1333vw;
+      margin: 0 2.1333vw;
+    }
+
+    .pre-search-con-app .pre-btn-con {
+      margin-left: 2.53333vw;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pre-back-svg {
+      fill: #000;
+      stroke: #fff;
+      stroke-width: 6vw;
+    }
+
+    .pre-skeleton-wrapper {
+      width: 100%;
+      background-color: #fff;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .pre-default-word-con {
+      margin-top: 6vw;
+    }
+
+    .pre-default-word-con>ul {
+      box-sizing: border-box;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pre-default-word-con>ul>li {
+      list-style: none;
+      display: inline-block;
+      background-color: #f8f8f9;
+      border-radius: 1.6vw;
+      height: 4.8vw;
+      margin-right: 4vw;
+    }
+
+    .pre-skt_con {
+      overflow: hidden;
+      position: relative;
+      display: block;
+      transform: translate3D(0, 0, 0);
+    }
+
+    .pre-skt_con:empty::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, #f8f8f9 1%, #ededed 30%, #ededed 70%, #f8f8f9 99%);
+      animation: skeleton-5ca7aa2a 4s infinite;
+    }
+
+    .pre-discovery-con {
+      margin-top: 5.06667vw;
+    }
+
+    .pre-con {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pre-con .pre-title {
+      width: 22vw;
+      height: 5.86667vw;
+      background: #f8f8f9;
+      border-radius: 1.6vw;
+      margin-bottom: 6.93333vw;
+    }
+
+    .pre-discovery-con li {
+      display: flex;
+      margin-bottom: 4vw;
+      justify-content: space-between;
+      gap: 4vw;
+    }
+
+    .pre-con ul li p {
+      display: inline-block;
+      height: 4.8vw;
+      background: #f8f8f9;
+      border-radius: 1.6vw;
+    }
+
+    .pre-con ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pre-hot-search-con {
+      margin-top: 2vw;
+      width: 92vw;
+      background: #ffffff;
+      border-radius: 2.4vw;
+      border: 0.26667vw solid #f2f2f2;
+      padding: 4.53333vw 5.46667vw;
+    }
+
+    .pre-hot-search-con li {
+      width: 100%;
+      margin-bottom: 3.86667vw;
+    }
+
+    .pre-hot-search-con li span:nth-of-type(1) {
+      width: 4vw;
+      height: 4vw;
+      background: #f8f8f9;
+      border-radius: 1.6vw;
+      margin-right: 2.4vw;
+      float: left;
+    }
+
+    .pre-hot-search-con li span:nth-of-type(2) {
+      width: 3.733333vw;
+      height: 4vw;
+      background: #f8f8f9;
+      border-radius: 1.6vw;
+      float: left;
+    }
+
+    .pre-hot-search-con li span:nth-of-type(3) {
+      float: right;
+      width: 12.8vw;
+      height: 4vw;
+      background: #f8f8f9;
+      border-radius: 1.6vw;
+    }
+
+    .pre-guess-like-con {
+      margin-top: 6.4vw;
+      margin-bottom: 7.73333vw;
+    }
+
+    .pre-guess-like-con ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .pre-guess-like-con ul li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pre-guess-like-con ul li .pre-image {
+      width: 6.4vw;
+      height: 6.4vw;
+      background: #f8f8f9;
+      border-radius: 50%;
+    }
+
+    .pre-swiper-con {
+      width: 100%;
+      height: 20vw;
+      background: #f8f8f9;
+      border-radius: 2.4vw;
+      margin-top: 6.4vw;
+      margin-bottom: 4.93333vw;
+    }
+  </style>
+<script defer src="/ngpsie/psiesearchsdk/js/runtime.js"></script><script defer src="/ngpsie/psiesearchsdk/js/chunk-libs.js"></script><script defer src="/ngpsie/psiesearchsdk/js/app.js"></script></head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but  doesn't work properly without JavaScript enabled. Please enable it
+        to continue.</strong>
+  </noscript>
+  <div id="preLoading">
+    <div class="pre-search-con-app">
+      <div class="pre-icon">
+        <!-- <img src="./images/co982mcu1f.png" alt="" /> -->
+        <svg t="1706171627689" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1460">
+          <path
+            d="M647.58670222 137.86225778a48.54518557 48.54518557 0 0 1 71.48278557 65.56027221l-2.83989334 3.08262002L410.78328889 512l305.47057778 305.49484999a48.54518557 48.54518557 0 0 1 2.83989333 65.56027335l-2.83989333 3.08261888a48.54518557 48.54518557 0 0 1-65.56027222 2.83989333l-3.08262002-2.83989333-339.81629553-339.81629667a48.54518557 48.54518557 0 0 1-2.83989333-65.56027222l2.83989333-3.08261888 339.81629553-339.81629667z"
+            fill="#000000" p-id="1461" class="pre-back-svg"></path>
+        </svg>
+      </div>
+      <div class="pre-input-con">
+        <input type="text" autocomplete="off" ref="myInput" enterkeyhint="search" />
+        <div class="pre-operate-con">
+          <!-- <span class="pre-icon s-iconfont ic-icon-clean" v-if="searchContent"></span> -->
+        </div>
+      </div>
+      <div class="pre-btn-con">搜索</div>
+    </div>
+    <div class="pre-dialog-box">
+      <div class="pre-skeleton-wrapper">
+        <div class="pre-default-word-con">
+          <ul>
+            <li class="pre-skt_con" style="width: 14.1538vw;"></li>
+            <li class="pre-skt_con" style="width: 18.4vw;"></li>
+            <li class="pre-skt_con" style="width: 24.0615vw;"></li>
+          </ul>
+        </div>
+        <div class="pre-con pre-discovery-con">
+          <div class="pre-title pre-skt_con"></div>
+          <ul>
+            <li>
+              <p class="pre-skt_con" style="width: 14.1538vw;"></p>
+              <p class="pre-skt_con" style="width: 18.4vw;"></p>
+              <p class="pre-skt_con" style="width: 24.0615vw;"></p>
+              <p class="pre-skt_con" style="width: 21.92vw;"></p>
+            </li>
+            <li>
+              <p class="pre-skt_con" style="width: 18.4vw;"></p>
+              <p class="pre-skt_con" style="width: 21.92vw;"></p>
+              <p class="pre-skt_con" style="width: 14.1538vw;"></p>
+              <p class="pre-skt_con" style="width: 18.4vw;"></p>
+            </li>
+          </ul>
+        </div>
+        <div class="pre-con pre-hot-search-con">
+          <div class="pre-title pre-skt_con"></div>
+          <ul>
+            <li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
+            </li>
+          </ul>
+        </div>
+        <div class="pre-con pre-guess-like-con">
+          <div class="pre-title pre-skt_con"></div>
+          <ul>
+            <li>
+              <div class="pre-image pre-skt_con"></div>
+              <p></p>
+            </li>
+            <li>
+              <div class="pre-image pre-skt_con"></div>
+              <p></p>
+            </li>
+            <li>
+              <div class="pre-image pre-skt_con"></div>
+              <p></p>
+            </li>
+            <li>
+              <div class="pre-image pre-skt_con"></div>
+              <p></p>
+            </li>
+          </ul>
+          <div class="pre-swiper-con skt_con"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.indexOf('leadeon') > -1) {
+      document.querySelector('.pre-search-con-app').style['margin-top'] = '13.333vw'
+    }
+  </script>
+  <div id="app"></div>
+  <!-- 使用CDN的JS文件 -->
+  
+</body>
+
+</html>

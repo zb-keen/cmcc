@@ -1,0 +1,37 @@
+{
+  "url_host": [
+    "testh.app.coc.10086.cn"
+  ],
+  "url_path": [
+    "/ngpsie/psiesearchsdk/index.html"
+  ],
+  "specify_hash_list": [
+    {
+      "path": "/ngpsie/psiesearchsdk/assets/fonts/DIN-Condensed.baab0dd6.ttf"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/assets/img/iconfont.fc0c9a31.svg"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/favicon.ico"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/gdp-full.js"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/hall_store.js"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/js/app.js"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/js/chunk-libs.js"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/js/runtime.js"
+    },
+    {
+      "path": "/ngpsie/psiesearchsdk/skynet-1.5.6.js"
+    }
+  ]
+}
