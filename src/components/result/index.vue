@@ -3309,8 +3309,8 @@ export default {
             that.currentCom = "EnterYList";
             that.currentRef = "EnterYListRef";
           }
-          xList.sort((a, b) => b.maxScore - a.maxScore);
-          yList.sort((a, b) => b.maxScore - a.maxScore);
+          // xList.sort((a, b) => b.maxScore - a.maxScore);
+          // yList.sort((a, b) => b.maxScore - a.maxScore);
           that.$nextTick(() => {
             // 把ai的显隐滞后一点吧
             // console.log('查询到数据才回显ai')
@@ -3319,8 +3319,25 @@ export default {
             that.searchTable = that.tabsList;
             // if(!that.searchZoneResultFlag){
             if (sessionStorage.pageEntranceIncludedPage.includes("1")) {
-              let arr = yList.concat(xList);
-              arr.sort((a, b) => b.maxScore - a.maxScore);
+              // 保持服务端返回的原始顺序，不将xList放在最后
+              let arr = [];
+              // 遍历原始searchTable，保持原始顺序
+              that.searchTable.forEach(item => {
+                if (item.wholeTemplateId == that.CONSTANTS.TEMPLATEPAGE.SERV001) {
+                  // 服务数据
+                  arr.push(item);
+                } else if (item.subList && item.subList.length == 0) {
+                  // 非服务且无二级分类
+                  arr.push(item);
+                } else if (item.subList && item.subList.length > 0) {
+                  // 有二级分类的数据
+                  item.subList.forEach(subItem => {
+                    arr.push(subItem);
+                  });
+                }
+              });
+              // 保持服务端返回的原始顺序，不按maxScore排序
+              // arr.sort((a, b) => b.maxScore - a.maxScore);
               
               // 对搜索结果和专区数据进行合并去重（按链接+省份维度）
               console.log('this.$isProvinceDistinct是否开启', this.$isProvinceDistinct,);
