@@ -2128,14 +2128,16 @@ export default {
                 that.currentCom = "EnterYList";
                 that.currentRef = "EnterYListRef";
               }
-              xList.sort((a, b) => b.maxScore - a.maxScore);
-              yList.sort((a, b) => b.maxScore - a.maxScore);
+              // 保持服务端返回的原始顺序，不按maxScore排序
+              // xList.sort((a, b) => b.maxScore - a.maxScore);
+              // yList.sort((a, b) => b.maxScore - a.maxScore);
               that.$nextTick(() => {
                 that.searchTable = that.tabsList;
                 // if(!that.searchZoneResultFlag){
                 if (sessionStorage.pageEntranceIncludedPage.includes("1")) {
                   let arr = yList.concat(xList);
-                  arr.sort((a, b) => b.maxScore - a.maxScore);
+                  // 保持服务端返回的原始顺序，不按maxScore排序
+                  // arr.sort((a, b) => b.maxScore - a.maxScore);
                   
                   // 对搜索结果和专区数据进行合并去重（按链接+省份维度）
                   console.log('this.$isProvinceDistinct===>', this.$isProvinceDistinct);
