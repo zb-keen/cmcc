@@ -3228,11 +3228,11 @@ export default {
             });
 
             // 按搜索专区给的dispOrd 从-1到大排序
-            that.tabsList = that.tabsList.sort((a, b) => a.dispOrd - b.dispOrd);
+            // that.tabsList = that.tabsList.sort((a, b) => a.dispOrd - b.dispOrd);
 
             that.tabsList.forEach((tab) => {
               if (tab.subList && tab.subList.length > 0) {
-                tab.subList.sort((a, b) => a.dispOrd - b.dispOrd);
+                // tab.subList.sort((a, b) => a.dispOrd - b.dispOrd);
               }
             });
           }
