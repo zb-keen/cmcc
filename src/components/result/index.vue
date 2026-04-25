@@ -1598,6 +1598,13 @@ export default {
                 obj.subList = item.subList || [];
                 obj.pCode = "P00000050500";
                 obj.showFlag = item.showFlag || "";
+                
+                // 过滤掉data和subList都为空的分类
+                // 但保留CSRDC_ALL（全部）分类
+                if (obj.categoryCode !== "CSRDC_ALL" && obj.data.length === 0 && obj.subList.length === 0) {
+                  return;
+                }
+                
                 that.tabsList.push(obj);
               });
 
@@ -1665,6 +1672,7 @@ export default {
                         (item) => item.categoryCode === cur.categoryCode
                       )
                     ) {
+                      // 专区数据即使data和subList为空也保留
                       acc.push(cur);
                     }
                     return acc;
@@ -1695,6 +1703,7 @@ export default {
                                 (item) => item.categoryCode === cur.categoryCode
                               )
                             ) {
+                              // 专区子分类数据即使data为空也保留
                               acc.push(cur);
                             }
                             return acc;
