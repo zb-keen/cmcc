@@ -1601,6 +1601,7 @@ export default {
                 
                 // 过滤掉data和subList都为空的分类
                 // 但保留CSRDC_ALL（全部）分类
+                // 专区数据如果为空也应该被过滤
                 if (obj.categoryCode !== "CSRDC_ALL" && obj.data.length === 0 && obj.subList.length === 0) {
                   return;
                 }
@@ -1672,7 +1673,13 @@ export default {
                         (item) => item.categoryCode === cur.categoryCode
                       )
                     ) {
-                      // 专区数据即使data和subList为空也保留
+                      // 专区数据如果data和subList都为空也应该被过滤
+                      // 但保留CSRDC_ALL（全部）分类
+                      if (cur.categoryCode !== "CSRDC_ALL" && 
+                          (!cur.data || cur.data.length === 0) && 
+                          (!cur.subList || cur.subList.length === 0)) {
+                        return acc;
+                      }
                       acc.push(cur);
                     }
                     return acc;
