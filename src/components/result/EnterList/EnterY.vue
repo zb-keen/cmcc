@@ -1,11 +1,12 @@
 <template>
   <div class="imp-content">
     <div
-      v-for="(item, indexM) in searchTableY"
-      :key="indexM"
-      ref="mContentRef"
-      :class="'imp-content_' + item.categoryCode"
-    >
+  v-for="(item, indexM) in searchTableY"
+  :key="indexM"
+  ref="mContentRef"
+  :class="'imp-content_' + item.categoryCode"
+  v-if="hasContent(item)"
+>
       <!-- {{ item.wholeTemplateId }}{{ item.categoryCode }} -->
       <!-- 全部标签页-横向-服务 -->
       <XServiceList
@@ -649,6 +650,19 @@ export default {
           }
         }
       });
+    },
+    
+    // 判断分类是否有内容
+    hasContent(item) {
+      // 检查 data 数组
+      const hasData = item.data && item.data.length > 0;
+      // 检查 subList 数组
+      const hasSubList = item.subList && item.subList.length > 0;
+      // 检查 searchZoneData 数组（专区数据）
+      const hasSearchZoneData = item.searchZoneData && item.searchZoneData.length > 0;
+      
+      // 只要有一个有内容就返回 true
+      return hasData || hasSubList || hasSearchZoneData;
     },
   },
   mounted() {
