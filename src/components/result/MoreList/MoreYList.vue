@@ -185,7 +185,7 @@
               </div>
               <!-- 商品-手机硬件-话费购 筛选 -->
               <no-data
-                v-if="noDataShowFilter && !searchZoneHasData"
+                v-if="(noDataShowFilter || (!moreArrDataList || !moreArrDataList.length)) && !searchZoneHasData"
                 ref="noDataRef"
               ></no-data>
               <template v-if="moreArrDataList && moreArrDataList.length">
