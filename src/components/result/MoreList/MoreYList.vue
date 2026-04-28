@@ -8,7 +8,7 @@
     <!-- 二级类目 -->
     <traffic-peak-fallback v-if="trafficPeakFallback" />
     <no-data
-      v-else-if="noDataShow && !searchZoneHasData"
+      v-else-if="(noDataShow || (moreArrList.length > 0 && (!moreArrDataList || !moreArrDataList.length))) && !searchZoneHasData"
       ref="noDataRef"
     ></no-data>
     <template v-else>
@@ -185,7 +185,7 @@
               </div>
               <!-- 商品-手机硬件-话费购 筛选 -->
               <no-data
-                v-if="(noDataShowFilter || (!moreArrDataList || !moreArrDataList.length)) && !searchZoneHasData"
+                v-if="(noDataShow || noDataShowFilter || (!moreArrDataList || !moreArrDataList.length)) && !searchZoneHasData"
                 ref="noDataRef"
               ></no-data>
               <template v-if="moreArrDataList && moreArrDataList.length">
