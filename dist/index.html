@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  <meta name="description" content="端内搜索H5">
-  <link rel="icon" href="/ngpsie/psiesearchsdk/favicon.ico">
-  <!-- <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes"> -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <script>
-    window.__SKYNET = {
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name="description" content="端内搜索H5"><link rel="icon" href="/ngpsie/psiesearchsdk/favicon.ico"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><script>window.__SKYNET = {
       appName: 'CMCCAPP',
       checkNet:true, // 检查资源是否异常
       usePathKey: true, // 是否使用页面路径作为上报Key
       appVersion:'20250821',
       rate: 20
-    }
-  </script>
-  <script src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/skynet-1.5.6.js" onerror="(function(script){ console.error('脚本加载失败: ', script); })(this)"></script>
-  <style>
-    body {
+    }</script><script src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/skynet-1.5.6.js" onerror="(function(script){ console.error('脚本加载失败: ', script); })(this)"></script><style>body {
       margin: 0;
     }
 
@@ -320,114 +301,7 @@
       border-radius: 2.4vw;
       margin-top: 6.4vw;
       margin-bottom: 4.93333vw;
-    }
-  </style>
-<script defer src="/ngpsie/psiesearchsdk/js/runtime.js"></script><script defer src="/ngpsie/psiesearchsdk/js/chunk-libs.js"></script><script defer src="/ngpsie/psiesearchsdk/js/app.js"></script></head>
-
-<body>
-  <noscript>
-    <strong>We're sorry but  doesn't work properly without JavaScript enabled. Please enable it
-        to continue.</strong>
-  </noscript>
-  <div id="preLoading">
-    <div class="pre-search-con-app">
-      <div class="pre-icon">
-        <!-- <img src="./images/co982mcu1f.png" alt="" /> -->
-        <svg t="1706171627689" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1460">
-          <path
-            d="M647.58670222 137.86225778a48.54518557 48.54518557 0 0 1 71.48278557 65.56027221l-2.83989334 3.08262002L410.78328889 512l305.47057778 305.49484999a48.54518557 48.54518557 0 0 1 2.83989333 65.56027335l-2.83989333 3.08261888a48.54518557 48.54518557 0 0 1-65.56027222 2.83989333l-3.08262002-2.83989333-339.81629553-339.81629667a48.54518557 48.54518557 0 0 1-2.83989333-65.56027222l2.83989333-3.08261888 339.81629553-339.81629667z"
-            fill="#000000" p-id="1461" class="pre-back-svg"></path>
-        </svg>
-      </div>
-      <div class="pre-input-con">
-        <input type="text" autocomplete="off" ref="myInput" enterkeyhint="search" />
-        <div class="pre-operate-con">
-          <!-- <span class="pre-icon s-iconfont ic-icon-clean" v-if="searchContent"></span> -->
-        </div>
-      </div>
-      <div class="pre-btn-con">搜索</div>
-    </div>
-    <div class="pre-dialog-box">
-      <div class="pre-skeleton-wrapper">
-        <div class="pre-default-word-con">
-          <ul>
-            <li class="pre-skt_con" style="width: 14.1538vw;"></li>
-            <li class="pre-skt_con" style="width: 18.4vw;"></li>
-            <li class="pre-skt_con" style="width: 24.0615vw;"></li>
-          </ul>
-        </div>
-        <div class="pre-con pre-discovery-con">
-          <div class="pre-title pre-skt_con"></div>
-          <ul>
-            <li>
-              <p class="pre-skt_con" style="width: 14.1538vw;"></p>
-              <p class="pre-skt_con" style="width: 18.4vw;"></p>
-              <p class="pre-skt_con" style="width: 24.0615vw;"></p>
-              <p class="pre-skt_con" style="width: 21.92vw;"></p>
-            </li>
-            <li>
-              <p class="pre-skt_con" style="width: 18.4vw;"></p>
-              <p class="pre-skt_con" style="width: 21.92vw;"></p>
-              <p class="pre-skt_con" style="width: 14.1538vw;"></p>
-              <p class="pre-skt_con" style="width: 18.4vw;"></p>
-            </li>
-          </ul>
-        </div>
-        <div class="pre-con pre-hot-search-con">
-          <div class="pre-title pre-skt_con"></div>
-          <ul>
-            <li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-            <li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span>
-            </li>
-          </ul>
-        </div>
-        <div class="pre-con pre-guess-like-con">
-          <div class="pre-title pre-skt_con"></div>
-          <ul>
-            <li>
-              <div class="pre-image pre-skt_con"></div>
-              <p></p>
-            </li>
-            <li>
-              <div class="pre-image pre-skt_con"></div>
-              <p></p>
-            </li>
-            <li>
-              <div class="pre-image pre-skt_con"></div>
-              <p></p>
-            </li>
-            <li>
-              <div class="pre-image pre-skt_con"></div>
-              <p></p>
-            </li>
-          </ul>
-          <div class="pre-swiper-con skt_con"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    const ua = navigator.userAgent.toLowerCase();
+    }</style><script defer="defer" src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/js/runtime.js"></script><script defer="defer" src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/js/chunk-libs.js"></script><script defer="defer" src="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/js/app.js"></script><link href="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/css/chunk-libs.css" rel="stylesheet"><link href="https://res.app.coc.10086.cn/ngpsie/psiesearchsdk/css/app.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="preLoading"><div class="pre-search-con-app"><div class="pre-icon"><svg t="1706171627689" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1460"><path d="M647.58670222 137.86225778a48.54518557 48.54518557 0 0 1 71.48278557 65.56027221l-2.83989334 3.08262002L410.78328889 512l305.47057778 305.49484999a48.54518557 48.54518557 0 0 1 2.83989333 65.56027335l-2.83989333 3.08261888a48.54518557 48.54518557 0 0 1-65.56027222 2.83989333l-3.08262002-2.83989333-339.81629553-339.81629667a48.54518557 48.54518557 0 0 1-2.83989333-65.56027222l2.83989333-3.08261888 339.81629553-339.81629667z" fill="#000000" p-id="1461" class="pre-back-svg"></path></svg></div><div class="pre-input-con"><input autocomplete="off" ref="myInput" enterkeyhint="search"/><div class="pre-operate-con"></div></div><div class="pre-btn-con">搜索</div></div><div class="pre-dialog-box"><div class="pre-skeleton-wrapper"><div class="pre-default-word-con"><ul><li class="pre-skt_con" style="width: 14.1538vw;"></li><li class="pre-skt_con" style="width: 18.4vw;"></li><li class="pre-skt_con" style="width: 24.0615vw;"></li></ul></div><div class="pre-con pre-discovery-con"><div class="pre-title pre-skt_con"></div><ul><li><p class="pre-skt_con" style="width: 14.1538vw;"></p><p class="pre-skt_con" style="width: 18.4vw;"></p><p class="pre-skt_con" style="width: 24.0615vw;"></p><p class="pre-skt_con" style="width: 21.92vw;"></p></li><li><p class="pre-skt_con" style="width: 18.4vw;"></p><p class="pre-skt_con" style="width: 21.92vw;"></p><p class="pre-skt_con" style="width: 14.1538vw;"></p><p class="pre-skt_con" style="width: 18.4vw;"></p></li></ul></div><div class="pre-con pre-hot-search-con"><div class="pre-title pre-skt_con"></div><ul><li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 50.953vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li><li><span></span><span class="pre-skt_con" style="width: 39.63vw;"></span><span class="pre-skt_con"></span></li></ul></div><div class="pre-con pre-guess-like-con"><div class="pre-title pre-skt_con"></div><ul><li><div class="pre-image pre-skt_con"></div><p></p></li><li><div class="pre-image pre-skt_con"></div><p></p></li><li><div class="pre-image pre-skt_con"></div><p></p></li><li><div class="pre-image pre-skt_con"></div><p></p></li></ul><div class="pre-swiper-con skt_con"></div></div></div></div></div><script>const ua = navigator.userAgent.toLowerCase();
     if (ua.indexOf('leadeon') > -1) {
       document.querySelector('.pre-search-con-app').style['margin-top'] = '13.333vw'
-    }
-  </script>
-  <div id="app"></div>
-  <!-- 使用CDN的JS文件 -->
-  
-</body>
-
-</html>
+    }</script><div id="app"></div></body></html>
